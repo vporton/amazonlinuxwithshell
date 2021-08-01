@@ -2,6 +2,8 @@
 
 echo "Initializing..."
 
+service awslogsd start
+
 # set -e
 
 trap "echo 'Cleaning temp files...'; systemd-tmpfiles --clean" SIGTERM SIGINT
