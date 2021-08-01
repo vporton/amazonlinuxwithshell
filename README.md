@@ -1,5 +1,5 @@
 # Amazon Linux with Shell
-**Work in progress!**
+**Work in progress!**, but seems already a useful software.
 
 Amazon Linux variant to be used in a container. On start launches a shell.
 
