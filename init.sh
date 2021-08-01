@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "Initializing..."
 
 # set -e
 
-# TODO: Trap exit and clean /tmp/
+trap "echo 'Cleaning temp files...'; systemd-tmpfiles --clean" SIGTERM SIGINT
 
 test -e /root/.ssh/authorized_keys
 key_exists=$?
@@ -18,6 +18,12 @@ else
     fi
 fi
 
-ls /root/.ssh/authorized_keys
+# exec /usr/sbin/sshd -D
+/usr/sbin/sshd -D &
+pid=$!
+echo "SSHD started."
+# trap "echo 'Killing'; kill $pid; exit" SIGTERM SIGINT
 
-exec /usr/sbin/sshd -D
+sleep infinity & wait
+echo 'Killing SSHD...'
+kill $pid
